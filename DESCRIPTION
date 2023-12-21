@@ -1,0 +1,21 @@
+Package: BINRES
+Type: Package
+Title: Bayesian Integrative Region Segmentation in Spatially 	
+		Resolved Transcriptomic Studies
+Version: 1.2
+Author: Yinqiao Yan, Xiangyu Luo
+Maintainer: Yinqiao Yan <yanyinqiao@ruc.edu.cn>
+Description: The R package used in the manuscript "Bayesian 
+		Integrative Region Segmentation in Spatially Resolved 
+		Transcriptomic Studies".
+License: GPL (>= 2)
+Encoding: UTF-8
+Imports: 
+    Rcpp,
+    RcppArmadillo,
+    stats,
+    rBeta2009,
+    truncnorm
+Depends: R (>= 4.1.0), mvtnorm, MCMCpack
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 7.2.3
