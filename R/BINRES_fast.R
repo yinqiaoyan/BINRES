@@ -53,6 +53,46 @@
 #' \item{dpXi_mcmc}{list, each element contains the posterior sample of \eqn{\xi_k} in each MCMC iteration.}
 #' \item{exeTime}{Total execution time of running the code.}
 #'
+#' @examples
+#' library(BINRES)
+#' library(aricode)
+#' library(ggplot2)
+#' # Import example data
+#' # (1) coord: Spatial coordinates
+#' # (2) image_data: preprocessed image data
+#' # (3) gene_data_pc: preprocessed gene expression matrix
+#' # obtained by normalizing ST raw count matrix, taking logarithm, and conducting PCA
+#' # (4) true_label: Biotype annotations (true region labels) of all spots
+#' data(example_data_BINRES_fast)
+#' # Dimension of spatial coordinates
+#' dim(coord)
+#' # Dimension of image data
+#' dim(image_data)
+#' # Dimension of gene expression data
+#' dim(gene_data_pc)
+#' # Auxiliary functions
+#' getmode <- function(v) {
+#'   uniqv <- unique(v)
+#'   res <- uniqv[which.max(tabulate(match(v, uniqv)))]
+#'   return(res)
+#' }
+#' # --- run BINRES ---
+#' # Total execution time is about 30 minutes
+#' # on a MacBook Pro with Intel Core i5 CPU at 2GHz and 16GB of RAM.
+#' res_list_fast = BINRES_fast(image_data = image_data, gene_data_pc = gene_data_pc, coord = coord,
+#'                             platform="Visium", num_init=15,
+#'                             numOfMCMC=3000, burnIn=1500, print_gap=50,
+#'                             Is_warm_start=TRUE, Is_random_seed=TRUE, random_seed=78)
+#' # Execution time
+#' res_list_fast$exeTime
+#' # Posterior mode of consensus clustering C
+#' clIds_mode = apply(res_list_fast$clIds_mcmc, 2, getmode)
+#' # 95% credible interval for spatial interaction parameter \beta
+#' quantile(res_list_fast$pottsBeta_mcmc, c(0.025, 0.975))
+#' # Compared with true labels
+#' table(clIds_mode, true_label)
+#' cat("ARI value:", ARI(clIds_mode, true_label))
+#'
 #' @references
 #' @export
 #' @importFrom stats kmeans rnorm runif dbeta dnorm
@@ -67,7 +107,7 @@ BINRES_fast <- function(image_data, gene_data_pc, coord, platform=c("ST", "Visiu
                         M0=50, geoq=0.5,
                         minPsi1=0, maxPsi1=0.9,
                         minPsi2=0, maxPsi2=0.9,
-                        numOfMCMC=6000, burnIn=3000, trunc_rbeta_by=10^(-5),
+                        numOfMCMC=6000, burnIn=3000, trunc_rbeta_by=10^(-3),
                         Is_beta_zero=FALSE, Is_warm_start=FALSE,
                         Is_print=TRUE, print_gap=10,
                         Is_random_seed=TRUE, random_seed=30) {

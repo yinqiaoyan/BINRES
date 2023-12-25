@@ -36,7 +36,7 @@ BINRES(
   maxPsi2 = 0.9,
   numOfMCMC = 6000,
   burnIn = 3000,
-  trunc_rbeta_by = 10^(-5),
+  trunc_rbeta_by = 10^(-3),
   Is_beta_zero = FALSE,
   Is_warm_start = FALSE,
   Is_logNormPcaGene = FALSE,
@@ -178,20 +178,24 @@ getmode <- function(v) {
   return(res)
 }
 # --- run BINRES ---
+# Total execution time is about 4.5 minutes
+# on a MacBook Pro with Intel Core i5 CPU at 2GHz and 16GB of RAM.
 res_list = BINRES(image_data = image_data, gene_data = gene_data, coord = coord,
                   platform="ST", num_init=5,
-                  minPsi1=0, maxPsi1=0.9, minPsi2=0, maxPsi2=0.9,
-                  a_beta=0.7, tau_beta=1, tau0=0.01, tau1=0.05,
-                  a0=0, b0=1, a1=-10, b1=5,
-                  a_mu_elem=0, B_mu_elem=1, d1=3, R1_elem=0.5,
-                  a_eta=1, b_eta=1, IGkappa=2, IGtau=10,
-                  bernRho=0.1, dpAlpha=1, geoq=0.5,
-                  Is_beta_zero=FALSE, Is_logNormPcaGene=FALSE,
+                  Is_logNormPcaGene=FALSE,
                   numOfMCMC=1000, burnIn=500, print_gap=10,
-                  Is_warm_start=FALSE, Is_random_seed=TRUE, random_seed=60)
+                  Is_warm_start=FALSE, Is_random_seed=TRUE, random_seed=30)
+# Execution time
+res_list$exeTime
 # Posterior mode of consensus clustering C and marker-gene indicator \gamma
 clIds_mode = apply(res_list$clIds_mcmc, 2, getmode)
 gamma_mode = apply(res_list$gamma_g_mcmc, 2, getmode)
+# 95\% credible interval for spatial interaction parameter \beta
+quantile(res_list$pottsBeta_mcmc, c(0.025, 0.975))
+# True marker gene ID
+cat("True marker gene ID:", marker_id)
+# Estimated marker gene ID
+cat("Estimated marker gene ID:", which(gamma_mode == 1))
 # Compared with true labels
 table(clIds_mode, true_label)
 cat("ARI value:", ARI(clIds_mode, true_label))
@@ -216,14 +220,7 @@ p <- ggplot(data = plot_dat, aes(x=x, y=y)) +
         axis.ticks.y=element_blank(),
         legend.title = element_blank()) +
   scale_color_manual(values=plot_color)
-p
-# 95\% credible interval for spatial interaction parameter \beta
-quantile(res_list$pottsBeta_mcmc, c(0.025, 0.975))
-# True marker gene ID
-cat("True marker gene ID:", marker_id)
-# Estimated marker gene ID
-cat("Estimated marker gene ID:", which(gamma_mode == 1))
-# Computational time
-res_list$zero_prop_spots
+par(ask=FALSE)
+print(p)
 
 }
