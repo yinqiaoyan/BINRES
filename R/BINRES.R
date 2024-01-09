@@ -94,7 +94,7 @@
 #' res_list = BINRES(image_data = image_data, gene_data = gene_data, coord = coord,
 #'                   platform="ST", num_init=5,
 #'                   Is_logNormPcaGene=FALSE,
-#'                   numOfMCMC=1000, burnIn=500, print_gap=10,
+#'                   numOfMCMC=1000, burnIn=500, print_gap=50,
 #'                   Is_warm_start=FALSE, Is_random_seed=TRUE, random_seed=30)
 #' # Execution time
 #' res_list$exeTime
@@ -110,13 +110,13 @@
 #' # Compared with true labels
 #' table(clIds_mode, true_label)
 #' cat("ARI value:", ARI(clIds_mode, true_label))
-#' # Visualization
+#' # --- Visualization ---
 #' tmpc = clIds_mode
 #' tmpc2 = tmpc
-#' tmpc2[tmpc == 1] = 2
-#' tmpc2[tmpc == 2] = 4
-#' tmpc2[tmpc == 3] = 3
-#' tmpc2[tmpc == 4] = 1
+#' tmpc2[tmpc == 1] = 1
+#' tmpc2[tmpc == 2] = 3
+#' tmpc2[tmpc == 3] = 2
+#' tmpc2[tmpc == 4] = 4
 #' tmpc = tmpc2
 #' plot_color=c("#CC6677", "#53B8EA", "#E2C845", "#03AF3C")
 #' plot_dat <- data.frame(x = coord[,1], y = coord[,2], c = tmpc)

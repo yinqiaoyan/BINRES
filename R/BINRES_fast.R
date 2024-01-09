@@ -92,6 +92,31 @@
 #' # Compared with true labels
 #' table(clIds_mode, true_label)
 #' cat("ARI value:", ARI(clIds_mode, true_label))
+#' # --- Visualization ---
+#' tmpc = clIds_mode
+#' tmpc2 = tmpc
+#' uniq_c = c(1:16)
+#' color_inds = c(3,6,7,8,11,9,12,5,1,15,13,2,4,14,10,16)
+#' for (i in 1:16) {
+#'   tmpc2[tmpc == uniq_c[i]] = color_inds[i]
+#' }
+#' tmpc = tmpc2
+#' plot_color=c("#3977af", "#c2b2d2", "#f08536", "#4f9b6c", "#84584e", "#d57fbe", "#b6bc6d", "#be9e96",
+#'              "#c63a32", "#f29d99", "#54b0c2", "#9d51f3", "#b2c7e5", "#a8dc93", "#f6bd82", "#A3A500")
+#' plot_dat <- data.frame(x = coord[,2], y = -coord[,1], c = tmpc)
+#' p <- ggplot(data = plot_dat, aes(x=x, y=y)) +
+#'   geom_point(aes(color=factor(c)), size = 2.5) +
+#'   theme(panel.background = element_blank(),
+#'         axis.title.x=element_blank(),
+#'         axis.text.x=element_blank(),
+#'         axis.ticks.x=element_blank(),
+#'         axis.title.y=element_blank(),
+#'         axis.text.y=element_blank(),
+#'         axis.ticks.y=element_blank(),
+#'         legend.title = element_blank()) +
+#'   scale_color_manual(values=plot_color)
+#' par(ask=FALSE)
+#' print(p)
 #'
 #' @references
 #' @export
