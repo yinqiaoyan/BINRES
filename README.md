@@ -4,9 +4,7 @@ Current BINRES R package: version 1.2
 
 The R package BINRES is built to implement the nonparametric Bayesian method named BINRES to carry out the region segmentation for a tissue section by integrating all the three types of data generated during the study --- gene expressions, spatial coordinates, and the histology image. BINRES captures the spatial dependence of neighboring spots and does not require a prespecified region number. It also combines the image and the gene expressions whose contribution weights can be flexibly adjusted in a data-adaptive manner. The computationally scalable extension BINRES-fast is developed for large-scale studies. In this package, a partially collapsed Gibbs sampler is carefully designed for Bayesian posterior inference. BINRES can be installed in Windows, Linux, and Mac OS.
 
-For technical details, please refer to our paper currently accepted in *Journal of the American Statistical Association*: Yinqiao Yan and Xiangyu Luo* (2024), "Bayesian integrative region segmentation in spatially resolved transcriptomic studies".
-
-**Note:** The BINRES R package for reproducibility in the paper is version 1.1.
+For technical details, please refer to our paper currently accepted in *Journal of the American Statistical Association*: Yinqiao Yan and Xiangyu Luo* (2024), "Bayesian integrative region segmentation in spatially resolved transcriptomic studies".  (The associated code and data used in simulations and real applications are in the online supplement "code_and_data.zip" of this paper. Please also notice that the BINRES R package used in the paper is version 1.1 which can be downloaded in "code_and_data.zip") 
 
 
 
