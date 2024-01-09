@@ -1,10 +1,12 @@
 ## BINRES: Bayesian integrative region segmentation in spatially resolved transcriptomic studies
 
+Current BINRES R package: version 1.2 
+
 The R package BINRES is built to implement the nonparametric Bayesian method named BINRES to carry out the region segmentation for a tissue section by integrating all the three types of data generated during the study --- gene expressions, spatial coordinates, and the histology image. BINRES captures the spatial dependence of neighboring spots and does not require a prespecified region number. It also combines the image and the gene expressions whose contribution weights can be flexibly adjusted in a data-adaptive manner. The computationally scalable extension BINRES-fast is developed for large-scale studies. In this package, a partially collapsed Gibbs sampler is carefully designed for Bayesian posterior inference. BINRES can be installed in Windows, Linux, and Mac OS.
 
 For technical details, please refer to our paper currently accepted in *Journal of the American Statistical Association*: Yinqiao Yan and Xiangyu Luo* (2024), "Bayesian integrative region segmentation in spatially resolved transcriptomic studies".
 
-The code for reproducibility in the paper can be downloaded through [xxx](xxx).
+**Note:** The BINRES R package for reproducibility in the paper is version 1.1.
 
 
 
@@ -117,7 +119,7 @@ getmode <- function(v) {
   res <- uniqv[which.max(tabulate(match(v, uniqv)))]
   return(res)
 }
-# --- run BINRES ---
+# --- run BINRES-fast ---
 # Total execution time is about 30 minutes
 # on a MacBook Pro with Intel Core i5 CPU at 2GHz and 16GB of RAM.
 res_list_fast = BINRES_fast(image_data = image_data, gene_data_pc = gene_data_pc, coord = coord,
@@ -164,7 +166,11 @@ or you can simply run
 
 ```R
 library(BINRES)
+# Total execution time is about 4.5 minutes
+# on a MacBook Pro with Intel Core i5 CPU at 2GHz and 16GB of RAM.
 example("BINRES")
+# Total execution time is about 30 minutes
+# on a MacBook Pro with Intel Core i5 CPU at 2GHz and 16GB of RAM.
 example("BINRES_fast")
 ```
 

@@ -31,7 +31,7 @@
 #' @param maxPsi2 upper bound of the uniform prior for the gene-expression contribution weight \eqn{\psi_2}. Default is 0.9.
 #' @param numOfMCMC Number of MCMC iterations. Default is 6000.
 #' @param burnIn Number of iterations in burn-in. After burnIn the posterior samples are used and saved to estimate the unknown parameters. Default is 3000.
-#' @param trunc_rbeta_by Argument "by" in the function "trunc_rbeta". Default is 10^(-5).
+#' @param trunc_rbeta_by Argument "by" in the function "trunc_rbeta". Default is 10^(-3).
 #' @param Is_beta_zero Logical; if TRUE, \eqn{\beta} is fixed at zero. Default is FALSE.
 #' @param Is_warm_start Logical; if TRUE, warm start steps by KMeans are used to initialize L1 and L2. Default is FALSE.
 #' @param Is_print Logical; if TRUE, iteration time information of each update step are printed. Default is TRUE.

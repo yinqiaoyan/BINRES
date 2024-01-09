@@ -93,7 +93,7 @@ BINRES_fast(
 
 \item{burnIn}{Number of iterations in burn-in. After burnIn the posterior samples are used and saved to estimate the unknown parameters. Default is 3000.}
 
-\item{trunc_rbeta_by}{Argument "by" in the function "trunc_rbeta". Default is 10^(-5).}
+\item{trunc_rbeta_by}{Argument "by" in the function "trunc_rbeta". Default is 10^(-3).}
 
 \item{Is_beta_zero}{Logical; if TRUE, \eqn{\beta} is fixed at zero. Default is FALSE.}
 
